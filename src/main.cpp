@@ -1,12 +1,15 @@
 #include "Arduboy.h"
 #include "matrixscreen.h"
 #include <EEPROM.h>
-Arduboy arduboy;
 
+
+Arduboy arduboy;
+MatrixScreen mscreen;
 
 
 void setup()
 {
+  mscreen = MatrixScreen();
   arduboy.begin();
   arduboy.setFrameRate(60);
   arduboy.display();
@@ -17,7 +20,7 @@ void loop() {
     return;
 
   delay(90);
-  clearMatrix();
+  mscreen.clearMatrix();
   arduboy.clear();
   //drawMatrix();
   //arduboy.setCursor(2, 57);

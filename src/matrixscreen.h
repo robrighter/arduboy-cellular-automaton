@@ -16,7 +16,8 @@ class MatrixScreen {
         void drawMatrix();
         void clearMatrix();
         void setPixel(byte x,byte y, bool on);
-}
+        void drawPixel(byte x,byte y);
+};
 
 
 #endif

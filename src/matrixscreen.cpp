@@ -28,7 +28,4 @@ void MatrixScreen::setPixel(byte x,byte y, bool on){
   screenMatrix[x][y] = on;
 }
 
-void MatrixScreen::scrollText(String toscroll, boolean endOnJoystickMove) {
-  //do nothing for now
-}
 
