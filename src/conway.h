@@ -1,7 +1,7 @@
 
 #ifndef CONWAY_H
 #define CONWAY_H
-#include "application.h"
+#include "Arduboy.h"
 
 #define CANVAS_WIDTH 16
 #define CANVAS_HEIGHT 8
