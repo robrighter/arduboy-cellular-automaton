@@ -95,7 +95,11 @@ void Conway::seedTheCanvas(){
     int x = 0;
     int y = 0;
     for(int i=0; i<number_on; i++){
-        x = random(CANVAS_WIDTH-1);
-        y = random(CANVAS_HEIGHT-1);
+        x = random(CANVAS_WIDTH-2);
+        y = random(CANVAS_HEIGHT-2);
+        canvas[y][x] = true;
+        canvas[y+1][x] = true;
+        canvas[y+1][x+1] = true;
+        canvas[y][x+1] = true;
     }
 }

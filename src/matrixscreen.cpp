@@ -1,7 +1,12 @@
 #include "matrixscreen.h"
 
+
+void MatrixScreen::setArduboy(Arduboy *a){
+    arduboy = a;
+}
+
 void MatrixScreen::drawPixel(byte x,byte y){
-  arduboy.fillRect((5*x)+2, 5*y, 4, 4, 1);
+  arduboy->fillRect((5*x)+2, 5*y, 4, 4, 1);
 }
 
 
@@ -14,7 +19,7 @@ void MatrixScreen::clearMatrix(){
 }
 
 void MatrixScreen::drawMatrix(){
-  arduboy.drawRect(1, 0, X_WIDTH*5, Y_WIDTH*5, 1);
+  arduboy->drawRect(1, 0, X_WIDTH*5, Y_WIDTH*5, 1);
   for(int x=0;x<X_WIDTH;x++){
     for(int y=0;y<Y_WIDTH;y++){
       if(screenMatrix[x][y] == true){

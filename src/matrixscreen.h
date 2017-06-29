@@ -9,10 +9,11 @@
 
 class MatrixScreen {
     
-    boolean screenMatrix[X_WIDTH][Y_WIDTH];
-    Arduboy arduboy;
+    boolean screenMatrix[X_WIDTH][Y_WIDTH] = {{false}};
+    Arduboy* arduboy;
     
     public:
+        void setArduboy(Arduboy* a);
         void drawMatrix();
         void clearMatrix();
         void setPixel(byte x,byte y, bool on);
