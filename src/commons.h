@@ -1,0 +1,2 @@
+#define MATRIX_HEIGHT 15
+#define MATRIX_WIDTH 42

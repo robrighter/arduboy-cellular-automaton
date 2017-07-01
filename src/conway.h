@@ -1,23 +1,22 @@
 
 #ifndef CONWAY_H
 #define CONWAY_H
-#include "Arduboy.h"
+#include <Arduboy.h>
+#include "commons.h"
 
-#define CANVAS_WIDTH 25
-#define CANVAS_HEIGHT 11
 #define CONWAY_CHANGE_SLEEP_SECONDS 10
 
 class Conway {
   public:
     Conway();
-    bool getValueAtLocation(uint8_t x, uint8_t y);
+    bool getValueAtLocation(int x, int y);
     void processNextCycle();
     void seedTheCanvas();
 
   private:
-    void setValueAtLocation(bool toset, uint8_t x, uint8_t y);
-    bool calculateValueAtLocation(uint8_t x, uint8_t y);
-    bool canvas[CANVAS_HEIGHT][CANVAS_WIDTH] = {
+    void setValueAtLocation(bool toset, int x, int y);
+    bool calculateValueAtLocation(int x, int y);
+    bool canvas[MATRIX_HEIGHT][MATRIX_WIDTH] = {
       {false}
     };
 

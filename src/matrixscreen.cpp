@@ -5,32 +5,39 @@ void MatrixScreen::setArduboy(Arduboy *a){
     arduboy = a;
 }
 
-void MatrixScreen::drawPixel(byte x,byte y){
-  arduboy->fillRect((5*x)+2, 5*y, 4, 4, 1);
+void MatrixScreen::drawPixel(int x,int y){
+    int16_t thex = (int16_t)x;
+    thex = (3*thex)+2;
+    int16_t they= (int16_t)y;
+    they = 3*they;
+    int16_t width = 2;
+    int16_t height = 2;
+    int16_t color = 1;
+    arduboy->fillRect(thex, they, width, height, color);
 }
 
 
 void MatrixScreen::clearMatrix(){
-  for(int x=0;x<X_WIDTH;x++){
-    for(int y=0;y<Y_WIDTH;y++){
-      screenMatrix[x][y] = false;
+  for(int x=0;x<MATRIX_WIDTH;x++){
+    for(int y=0;y<MATRIX_HEIGHT;y++){
+      screenMatrix[y][x] = false;
     }
   }
 }
 
 void MatrixScreen::drawMatrix(){
-  arduboy->drawRect(1, 0, X_WIDTH*5, Y_WIDTH*5, 1);
-  for(int x=0;x<X_WIDTH;x++){
-    for(int y=0;y<Y_WIDTH;y++){
-      if(screenMatrix[x][y] == true){
+  arduboy->drawRect(1, 0, MATRIX_WIDTH*3, MATRIX_HEIGHT*3, 1);
+  for(int x=0;x<MATRIX_WIDTH;x++){
+    for(int y=0;y<MATRIX_HEIGHT;y++){
+      if(screenMatrix[y][x] == true){
         drawPixel(x,y);  
       }
     }
   }
 }
 
-void MatrixScreen::setPixel(byte x,byte y, bool on){
-  screenMatrix[x][y] = on;
+void MatrixScreen::setPixel(int x, int y, bool on){
+  screenMatrix[y][x] = on;
 }
 
 
