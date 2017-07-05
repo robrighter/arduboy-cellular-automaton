@@ -2,7 +2,7 @@
 
 Conway::Conway(){}
 
-bool Conway::getValueAtLocation(int x, int y){
+bool Conway::getValueAtLocation(uint8_t x, uint8_t y){
     if( (x < MATRIX_WIDTH) && (y < MATRIX_HEIGHT) ){
         return canvas[y][x];
     }
@@ -10,37 +10,41 @@ bool Conway::getValueAtLocation(int x, int y){
         return false;
     }
 }
+
+
     
+void Conway::setTheCanvas(bool theCanvas[][MATRIX_WIDTH]){
+  canvas = theCanvas;
+}
 
 void Conway::processNextCycle(){
-    int x=0;
-    int y=0;
+    uint8_t x=0;
+    uint8_t y=0;
     
     bool nextcanvas[MATRIX_HEIGHT][MATRIX_WIDTH];
     
     //calculate the new values
     for(x=0; x<MATRIX_WIDTH; x++){
         for(y=0; y<MATRIX_HEIGHT; y++){
-            nextcanvas[y][x] = x%2 ? true : false;//calculateValueAtLocation(x,y);
+            nextcanvas[y][x] = calculateValueAtLocation(x,y);
         }
     }
     
     //now copy the new values onto the canvas
     for(x=0; x<MATRIX_WIDTH; x++){
         for(y=0; y<MATRIX_HEIGHT; y++){
-            canvas[y][x] = nextcanvas[y][x];//new_canvas[y][x] ? true : false;
+            canvas[y][x] = nextcanvas[y][x] ? true : false;
         }
     }
 }
 
-void Conway::setValueAtLocation(bool toset, int x, int y){
+void Conway::setValueAtLocation(bool toset, uint8_t x, uint8_t y){
     if( (x < MATRIX_WIDTH) && (y<MATRIX_HEIGHT) ){
         canvas[y][x] = toset;
     }
 }
 
-bool Conway::calculateValueAtLocation(int x, int y){
-    bool neighbors[8];
+bool Conway::calculateValueAtLocation(uint8_t x, uint8_t y){
     uint8_t top_y = (y == 0) ? MATRIX_HEIGHT-1 : y-1;
     uint8_t middle_y = y;
     uint8_t bottom_y = ((y+1)<MATRIX_HEIGHT) ? y+1 : 0;
@@ -63,7 +67,7 @@ bool Conway::calculateValueAtLocation(int x, int y){
     uint8_t neighbors_on = 0;
     uint8_t neighbors_off = 0;
     
-    for(int i = 0; i<8; i++){
+    for(uint8_t i = 0; i<8; i++){
         if(neighbors[i]){
             neighbors_on++;
         }
@@ -71,6 +75,8 @@ bool Conway::calculateValueAtLocation(int x, int y){
             neighbors_off++;
         }
     }
+
+
     //RULES
     //1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
     if( is_on && (neighbors_on<2) ){
@@ -88,20 +94,17 @@ bool Conway::calculateValueAtLocation(int x, int y){
     if( (!is_on) && (neighbors_on == 3) ){
         return true;
     }
-    //should not get here
-    return false;
+    //everything else just return the same dead cell that was there last round.
+    return is_on;
 }
 
 void Conway::seedTheCanvas(){
-    int number_on = random(10);
-    int x = 0;
-    int y = 0;
-    for(int i=0; i<number_on; i++){
-        x = random(MATRIX_WIDTH-2);
-        y = random(MATRIX_HEIGHT-2);
+    uint8_t number_on = random(150);
+    uint8_t x = 0;
+    uint8_t y = 0;
+    for(uint8_t i=0; i<number_on; i++){
+        y = i%MATRIX_HEIGHT;
+        x = i%MATRIX_WIDTH;
         canvas[y][x] = true;
-        canvas[y+1][x] = true;
-        canvas[y+1][x+1] = true;
-        canvas[y][x+1] = true;
     }
 }

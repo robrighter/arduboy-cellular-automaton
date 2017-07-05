@@ -12,11 +12,11 @@ Conway conway = Conway();
 int iteration = 0;
 
 void intro(){
-    for(int i = -8; i < 28; i = i + 2){
+    for( uint8_t i = -8; i < 28; i = i + 2){
         arduboy.clear();
         arduboy.setCursor(10, i);
         arduboy.print("Cellular Automaton");
-        arduboy.display();
+        arduboy.display(); 
     }
     delay(700);                
 }
@@ -24,7 +24,7 @@ void intro(){
 
 void setup()
 {
-  
+    randomSeed(analogRead(0));
     arduboy.begin();
     arduboy.setFrameRate(60);
     arduboy.display();
@@ -34,12 +34,13 @@ void setup()
     iteration = 0;
     mscreen.setArduboy( & arduboy );
     mscreen.clearMatrix();
+    conway.setTheCanvas(mscreen.getCanvas());
     conway.seedTheCanvas();
 }
 
 void writeCellularValuesToScreen(){
-    int x = 0;
-    int y = 0;
+    uint8_t x = 0;
+    uint8_t y = 0;
     for(x=0; x<MATRIX_WIDTH; x++){
         for(y=0; y<MATRIX_HEIGHT; y++){
            mscreen.setPixel(x,y, conway.getValueAtLocation(x,y));
@@ -50,10 +51,10 @@ void writeCellularValuesToScreen(){
 void loop() {
     if (!(arduboy.nextFrame()))
         return;
-    delay(500);
-    mscreen.clearMatrix();
+    delay(400);
+    //mscreen.clearMatrix();
     arduboy.clear();
-    writeCellularValuesToScreen();
+    //writeCellularValuesToScreen();
     mscreen.drawMatrix();
     arduboy.setCursor(2, 57);
     char displaystring[22];
